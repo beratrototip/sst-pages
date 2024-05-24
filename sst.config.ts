@@ -5,11 +5,15 @@ export default $config({
     return {
       name: "SST-Pages",
       removal: input?.stage === "production" ? "retain" : "remove",
+      //This project is initialized with cloudflare but it uses pulumi
+      // Add cloudflare pulumi packages with sst add cloudflare
+      // Whatever sst lacks, pulumi provides
       home: "cloudflare",
     };
   },
 
   async run() {
+    //
     new cloudflare.PagesProject("Newproject", {
       accountId: "YOUR_ACCOUNT_ID",
       productionBranch: "main",
@@ -21,10 +25,10 @@ export default $config({
       source: {
         type: "github",
         config: {
-          owner: "beratrototip",
+          owner: "beratrototip", //Git account that owns the repo
           deploymentsEnabled: true,
           productionDeploymentEnabled: true,
-          repoName: "testpages",
+          repoName: "testpages", // actual repo name
           productionBranch: "main",
         },
       },
